@@ -1,0 +1,29 @@
+'This script allows to copy the content of all cells in the range A5:MN (where: M - number of last non-empty column; 
+'N - number of last non-empty row) from all excel files in directory Path and paste them to new created CSV files at the
+' location specified on line 22 of this code.
+
+Sub XlsToCsv()
+    Dim Filename, myString As String
+    Dim Path As String
+    Path = "C:\Users\admin\BMsymulacje\"
+    Filename = Dir(Path & "*.xls")
+    Do While Filename <> ""
+       Workbooks.Open Filename:=Path & Filename, ReadOnly:=True
+
+        ActiveWorkbook.Sheets(1).Range("A5:D5").Select
+        Range(Selection, Selection.End(xlDown)).Select
+        Selection.Copy
+        Sheets.Add After:=Sheets(Sheets.Count)
+        Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+
+        myString = Left(Filename, Len(Filename) - 5)
+        ActiveWorkbook.Sheets(Sheets.Count).SaveAs Filename:= _
+        "C:\Users\admin\BMsymulacje\" & myString _
+        , FileFormat:=xlCSV, CreateBackup:=False
+        ActiveWorkbook.Close True
+        'Debug.Print MsgBox(myString)
+        Filename = Dir
+    Loop
+
+End Sub
