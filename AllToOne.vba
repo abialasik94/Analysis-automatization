@@ -1,3 +1,11 @@
+'Before run a main AllThree() function you have to specify only Source1, which is the path to folder with your xls files.
+'By running AllThree() function 3 subfunctions descripted below will be started:
+'1) Names() - names of all workbooks in specified directory will be added to each non-empty row, after last column (n+1)
+'2) GetSheets() - first sheets from all .xls files in specified directory will be copied to new sheet in excel file
+' from which the script was launched
+'3) CombineDataFromAllSheets() - move the content of every sheet in excel file from which the script was launched to
+' sheet Import created earlier
+
 Sub AllThree()
     Dim Source1 As String
     'do not forget last backslash in source directory.
